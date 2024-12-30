@@ -19,7 +19,7 @@ public class TransactionProcessorTests {
         Map<Integer, Integer> totalAmountForEachSource = TransactionProcessor.getTotalAmountForEachSource(transactions);
 
         Integer totalAmount = totalAmountForEachSource.get(1);
-        Assertions.assertEquals(20, totalAmount);
+        Assertions.assertEquals(4, totalAmount);
 
         totalAmount = totalAmountForEachSource.get(7);
         Assertions.assertNull(totalAmount);
@@ -29,7 +29,7 @@ public class TransactionProcessorTests {
         int[][] transactions = {{1, 2, 5}};
         Map<Integer, Integer> totalAmountForEachSource = TransactionProcessor.getTotalAmountForEachSource(transactions);
         Integer totalAmount = totalAmountForEachSource.get(1);
-        Assertions.assertEquals(5, totalAmount);
+        Assertions.assertEquals(-5, totalAmount);
     }
 
     @Test

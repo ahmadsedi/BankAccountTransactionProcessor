@@ -18,7 +18,7 @@ import java.util.stream.Stream;
 public class TransactionProcessor {
 
     public static Map<Integer, Integer> getTotalAmountForEachSource(int[][] transactions){
-        return Arrays.stream(transactions).map(row->getTransaction(row)).collect(new TransactionSourceCollector());
+        return Arrays.stream(transactions).map(TransactionProcessor::getTransaction).collect(new TransactionSourceCollector());
     }
 
     private static Transaction getTransaction(int[] row){
@@ -35,7 +35,8 @@ public class TransactionProcessor {
         @Override
         public BiConsumer<Map<Integer, Integer>, Transaction> accumulator() {
             return (map, transaction)->{
-                map.merge(transaction.getSource(), transaction.getAmount(), Integer::sum);
+                map.merge(transaction.getSource(), (-1)*transaction.getAmount(), Integer::sum);
+                map.merge(transaction.getDestination(), transaction.getAmount(), Integer::sum);
             };
         }
 
